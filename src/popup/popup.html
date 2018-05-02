@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            *, *:after, *:before {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                width: 100%;
+                height: 100%;
+            }
+            .container {
+                padding: 10px;
+                width: 400px;
+                height: 100%;
+                display: flex;
+            }
+            .left-bar {
+                width: 50px;
+                height: 200px;
+                text-align: center;
+                padding-left: 2px;
+            }
+            h3 {
+                line-height: 24px;
+                text-align: center;
+            }
+            .content {
+                width: 100%;
+                background: #FFF;
+                height: 200px;
+                padding-left: 10px;
+                text-align: center;
+            }
+            form {
+                padding: 0 10px;
+            }
+            input {
+                border: none;
+                background: rgba(0,0,0,0.1);
+                padding: 0 10px;
+                line-height: 30px;
+                font-size: 14px;
+                width: 100%;
+                border-bottom: 2px solid rgba(0,0,0,0.4);
+                border-radius: 0 5px 5px 0;
+            }
+            .input-group {
+                display: flex;
+                width: 100%;
+                padding: 10px 0;
+            }
+            .pre {
+                border-bottom: 2px solid transparent;
+                padding: 0 10px;
+                line-height: 30px;
+                font-size: 14px;
+                display: inline-block;
+                background: rgba(0,0,0,0.5);
+                border-radius: 5px 0 0 5px;
+                color: rgba(255,255,255,0.9);
+            }
+            .hour-list {
+                background: #002569;
+                border-radius: 5px;
+                list-style: none;
+                color: #FFF;
+            }
+            .hour-list li {
+                line-height: 16px;
+                padding: 3px 0;
+                transition: 0.2s;
+            }
+            .hour-list li:first-of-type {
+                border-radius: 5px 5px 0 0;
+            }
+            .hour-list li:last-of-type {
+                border-radius: 0 0 5px 5px;
+            }
+            .hour-list li.success {
+                background: rgb(59, 158, 87);
+            }
+            .hour-list li:hover {
+                background: rgba(255,255,255,0.4);
+                cursor: pointer;
+            }
+            .hour-list li.active {
+            }
+            .selector {
+                position: absolute;
+                width: 0; 
+                height: 0;
+                top: 24px;
+                left: 43px;
+                border-top: 11px solid transparent;
+                border-bottom: 11px solid transparent; 
+                border-right:11px solid #FFF;
+                transition: 0.2s;
+            }
+            button {
+                display: block;
+                width: 100%;
+                line-height: 30px;
+                border: none;
+                background: #002569;
+                border-bottom: 2px solid #071d46;
+                border-radius: 5px;
+                color: rgba(255,255,255,0.9);
+                transition: 0.2s;
+                cursor: pointer;
+            }
+            button:hover {
+                background: #0740aa;
+                border-bottom: 2px solid #05399b;
+            }
+            button.update {
+                background: rgb(59, 158, 87);
+                border-bottom: 2px solid rgb(37, 90, 52);
+            }
+            button.update:hover {
+                background: rgb(38, 112, 59);
+                border-bottom: 2px solid rgb(26, 71, 39);
+            }
+            #export {
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <aside class="left-bar">
+                <h3>Hour</h3>
+                <ul class="hour-list">
+                    <li data-index=1>1</li>
+                    <li data-index=2>2</li>
+                    <li data-index=3>3</li>
+                    <li data-index=4>4</li>
+                    <li data-index=5>5</li>
+                    <li data-index=6>6</li>
+                    <li data-index=7>7</li>
+                    <li data-index=8>8</li>
+                </ul>
+            </aside>
+            <div class="content">
+                <h3>SG Timesheet</h3>
+                <form id="form" action="#" method="POST">
+                    <input type="hidden" id="hour" value=0 />
+                    <div class="input-group">
+                        <span class="pre">SG#</span>
+                        <input type="text" name="project" placeholder="1000" size=4 id="project"/>
+                    </div>
+                    <div class="input-group">
+                        <span class="pre">Task</span>
+                        <input type="text" name="project" placeholder="Programming" id="task"/>
+                    </div>
+                    <div class="input-group">
+                        <button id="submit" type="submit">Add to timesheet</button>
+                    </div>
+                </form>
+                <a id="export" href="https://kz7jvrkz59.execute-api.us-west-1.amazonaws.com/dev/SGTimesheet?time=week&type=csv" download>Export</a>
+            </div>
+            <div class="selector"></div>
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
