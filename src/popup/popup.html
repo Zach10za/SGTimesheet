@@ -18,8 +18,8 @@
                 display: flex;
             }
             .left-bar {
-                width: 50px;
-                height: 200px;
+                width: 100px;
+                height: 230px;
                 text-align: center;
                 padding-left: 2px;
             }
@@ -62,22 +62,52 @@
                 border-radius: 5px 0 0 5px;
                 color: rgba(255,255,255,0.9);
             }
-            .hour-list {
+            .days, .hours {
+                display: inline-block;
+                vertical-align: top;
+            }
+            .day-list {
                 background: #002569;
-                border-radius: 5px;
+                border-radius: 5px 0 0 5px;
                 list-style: none;
                 color: #FFF;
+                margin-right: -4px;
+                width: 40px;
+            }
+            .day-list li, .hour-list li {
+                position: relative;
+                padding: 0;
+                transition: 0.2s;
+                width: 100%;
+            }
+            .day-list li {
+                line-height: 40px;
+            }
+            .day-list li:hover {
+                background: rgba(255,255,255,0.4);
+                cursor: pointer;
+            }
+            .day-list li.active {
+            }
+            .day-list li.success {
+                background: rgb(59, 158, 87);
+            }
+            .hour-list {
+                background: #F39200;
+                background: #002569;
+                border-radius: 0 5px 5px 0;
+                list-style: none;
+                color: #FFF;
+                width: 35px;
             }
             .hour-list li {
-                line-height: 16px;
-                padding: 3px 0;
-                transition: 0.2s;
+                line-height: 25px;
             }
             .hour-list li:first-of-type {
-                border-radius: 5px 5px 0 0;
+                border-radius: 0 5px 0 0;
             }
             .hour-list li:last-of-type {
-                border-radius: 0 0 5px 5px;
+                border-radius: 0 0 5px 0;
             }
             .hour-list li.success {
                 background: rgb(59, 158, 87);
@@ -90,14 +120,25 @@
             }
             .selector {
                 position: absolute;
-                width: 0; 
+                width: 0;
+                top: 0;
+                left: 0; 
                 height: 0;
-                top: 24px;
-                left: 43px;
-                border-top: 11px solid transparent;
-                border-bottom: 11px solid transparent; 
-                border-right:11px solid #FFF;
                 transition: 0.2s;
+            }
+            #daySelector {
+                top: 24px;
+                left: 13px;
+                border-top: 20px solid transparent;
+                border-bottom: 20px solid transparent; 
+                border-left: 12px solid #FFF;
+            }
+            #hourSelector {
+                top: 34px;
+                left: 78px;
+                border-top: 13px solid transparent;
+                border-bottom: 12px solid transparent; 
+                border-right: 10px solid #FFF;
             }
             button {
                 display: block;
@@ -126,22 +167,72 @@
             #export {
                 margin: 0 auto;
             }
+            .day-list span {
+                position: absolute;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+            }
+            div[class^="progress-"] {
+                height: 40px;
+                background: rgb(59, 158, 87);
+                transition: 0.2s;
+            }
+            .progress-8 {
+                width: 100%;
+            }
+            .progress-7 {
+                width: 87.5%;
+            }
+            .progress-6 {
+                width: 75%;
+            }
+            .progress-5 {
+                width: 62.5%;
+            }
+            .progress-4 {
+                width: 50%;
+            }
+            .progress-3 {
+                width: 37.5%;
+            }
+            .progress-2 {
+                width: 25%;
+            }
+            .progress-1 {
+                width: 12.5%;
+            }
+            .progress-0 {
+                width: 0%;
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <aside class="left-bar">
-                <h3>Hour</h3>
-                <ul class="hour-list">
-                    <li data-index=1>1</li>
-                    <li data-index=2>2</li>
-                    <li data-index=3>3</li>
-                    <li data-index=4>4</li>
-                    <li data-index=5>5</li>
-                    <li data-index=6>6</li>
-                    <li data-index=7>7</li>
-                    <li data-index=8>8</li>
-                </ul>
+                <div class="days">
+                    <h3>Day</h3>
+                    <ul class="day-list">
+                        <li data-index=1><span>M</span><div class="progress-0"></div></li>
+                        <li data-index=2><span>T</span><div class="progress-0"></div></li>
+                        <li data-index=3><span>W</span><div class="progress-0"></div></li>
+                        <li data-index=4><span>Th</span><div class="progress-0"></div></li>
+                        <li data-index=5><span>F</span><div class="progress-0"></div></li>
+                    </ul>
+                </div>
+                <div class="hours">
+                    <h3>Hour</h3>
+                    <ul class="hour-list">
+                        <li data-index=1>1</li>
+                        <li data-index=2>2</li>
+                        <li data-index=3>3</li>
+                        <li data-index=4>4</li>
+                        <li data-index=5>5</li>
+                        <li data-index=6>6</li>
+                        <li data-index=7>7</li>
+                        <li data-index=8>8</li>
+                    </ul>
+                </div>
             </aside>
             <div class="content">
                 <h3>SG Timesheet</h3>
@@ -161,7 +252,8 @@
                 </form>
                 <a id="export" href="https://kz7jvrkz59.execute-api.us-west-1.amazonaws.com/dev/SGTimesheet?time=week&type=csv" download>Export</a>
             </div>
-            <div class="selector"></div>
+            <div id="daySelector" class="selector"></div>
+            <div id="hourSelector" class="selector"></div>
         </div>
         <script src="popup.js"></script>
     </body>
