@@ -34,7 +34,6 @@ const getCurrentDay = () => {
 
 // Move the triangle selector to the correct hour position and load previous data from state into the form
 const moveSelector = (day = 0, hour = 1) => {
-    console.log('moveSelector', day,hour);
     chrome.storage.sync.get(['state'], (result) => {
         let selectedHour = {}
         document.querySelectorAll('ul.hour-list li').forEach(node => {
@@ -48,7 +47,6 @@ const moveSelector = (day = 0, hour = 1) => {
             };
         });
 
-        console.log(selectedHour);
         const hourTop = (hour - 1) * 25 + 34 + "px";
         const dayTop = day * 40 + 34 + "px";
 
@@ -110,8 +108,6 @@ const submitHour = () => {
                 return true;
             }
         });
-        console.log("method="+method);
-        console.log("params="+params);
         xhr.open(method, "https://kz7jvrkz59.execute-api.us-west-1.amazonaws.com/dev/SGTimesheet/");
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = () => {
@@ -150,7 +146,6 @@ const submitHour = () => {
                     state.week[hour.day-2].hours.push(hour);
                     if (!state.week[hour.day-2].date) state.week[hour.day-2].date = hour.date;
                 });
-                // console.log(state);
                 chrome.storage.sync.set({ state }, update);
             });
         }
